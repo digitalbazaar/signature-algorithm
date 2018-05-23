@@ -1,0 +1,33 @@
+{
+  "name": "signature-algorithms",
+  "version": "1.0.1-0",
+  "description": "",
+  "main": "lib",
+  "scripts": {
+    "test": "mocha ./test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/digitalbazaar/signature-algorithms.git"
+  },
+  "author": {
+    "name": "Digital Bazaar, Inc.",
+    "email": "support@digitalbazaar.com",
+    "url": "https://digitalbazaar.com/"
+  },
+  "bugs": {
+    "url": "https://github.com/digitalbazaar/signature-algorithms/issues"
+  },
+  "homepage": "https://github.com/digitalbazaar/signature-algorithms#readme",
+  "dependencies": {
+    "bs58": "^4.0.1",
+    "chloride": "^2.2.9"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^5.1.1"
+  },
+  "engines": {
+    "node": ">=8.6.0"
+  }
+}
