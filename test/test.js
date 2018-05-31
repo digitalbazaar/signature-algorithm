@@ -15,12 +15,17 @@ describe('signature-algorithms', () => {
   describe('Promise API', () => {
 
     describe('sign API', () => {
-      it('returns an error on an unknown algorithm', () => {
-        return hsc.sign({algorithm: 'abc'})
-          .catch(err => {
-            should.exist(err);
-            err.message.should.equal('Unknown algorithm \'abc\'.');
-          });
+      it('returns an error on an unknown algorithm', async () => {
+        let result;
+        let err;
+        try {
+          result = await hsc.sign({algorithm: 'abc'});
+        } catch(e) {
+          err = e;
+        }
+        should.not.exist(result);
+        should.exist(err);
+        err.message.should.equal('Unknown algorithm \'abc\'.');
       });
 
       describe('Ed25519', () => {
@@ -64,15 +69,21 @@ describe('signature-algorithms', () => {
                 'V3r7KwKpbWasAZxPXjqZy8DnY8v++0+bVIQBQ==');
             });
         });
-        it('returns an error on invalid `hashType`', () => {
+        it('returns an error on invalid `hashType`', async () => {
           const plaintext = 'abc123';
           const sharedKey = 'secretKey';
-          return hsc.sign(
-            {algorithm: 'hmac', hashType: 'unknown', plaintext, sharedKey})
-            .catch(err => {
-              should.exist(err);
-              err.message.should.contain('Unknown message digest');
-            });
+          let result;
+          let err;
+          try {
+            result = await hsc.sign(
+              {algorithm: 'hmac', hashType: 'unknown', plaintext, sharedKey});
+
+          } catch(e) {
+            err = e;
+          }
+          should.not.exist(result);
+          should.exist(err);
+          err.message.should.contain('Unknown message digest');
         });
       });
 
@@ -112,26 +123,37 @@ describe('signature-algorithms', () => {
                 'N5CldSvFAMy4gT1elcsc5F3BRrEp1GkmzuwI+R80xWCVLi4Mbqn0xsADQ==');
             });
         });
-        it('returns an error on invalid `hashType`', () => {
+        it('returns an error on invalid `hashType`', async () => {
           const plaintext = 'abc123';
           const {privateKeyPem} = mockData.rsa2048KeyPair;
-          return hsc.sign(
-            {algorithm: 'rsa', hashType: 'unknown', plaintext, privateKeyPem})
-            .catch(err => {
-              should.exist(err);
-              err.message.should.contain('Unknown message digest');
+          let result;
+          let err;
+          try {
+            result = await hsc.sign({
+              algorithm: 'rsa', hashType: 'unknown', plaintext, privateKeyPem
             });
+          } catch(e) {
+            err = e;
+          }
+          should.not.exist(result);
+          should.exist(err);
+          err.message.should.contain('Unknown message digest');
         });
       });
     });
 
     describe('verify API', () => {
-      it('returns an error on an unknown algorithm', () => {
-        return hsc.verify({algorithm: 'abc'})
-          .catch(err => {
-            should.exist(err);
-            err.message.should.equal('Unknown algorithm \'abc\'.');
-          });
+      it('returns an error on an unknown algorithm', async () => {
+        let result;
+        let err;
+        try {
+          result = await hsc.verify({algorithm: 'abc'});
+        } catch(e) {
+          err = e;
+        }
+        should.not.exist(result);
+        should.exist(err);
+        err.message.should.equal('Unknown algorithm \'abc\'.');
       });
 
       describe('Ed25519', () => {
